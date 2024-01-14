@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# WMS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+WMS is a warehouse management inventory tool created custom to my actual place of employment, to solve multiple issues as I have come across while working as a fork lift operater. The system in place is glitchy and outdated at best, and is causing inventory problems, costing time and money. Created with the MERN stack.
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+```bash
+npm run setup_dev
+```
 
-### `npm start`
+or to setup server side:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+npm run setup_server
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+to setup client side:
 
-### `npm test`
+```bash
+npm run setup_client
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+to import base data to mongo db
 
-### `npm run build`
+```bash
+npm run setup_data:import
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+to delete data in mongo db
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm run setup_data:destroy
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To setup enviroment variables, create a .env file in `./WMS/server` and copy the contents of `.env.example` to `.env` file. Replace values in `.env` with your enviroment variable values.
 
-### `npm run eject`
+#### SERVER API
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+##### Endpoints
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+users
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- `http://localhost:5000/api/`
+  - `POST` - registerUser
+  - `GET` - getUsers
+- `http://localhost:5000/api/auth`
+  - `POST` - authUser
+- `http://localhost:5000/api/logout`
+  - `POST` - logoutUser
+- `http://localhost:5000/api/:id`
+  - `DELETE` - deleteUser
+  - `PUT` - updateUser
+  - `GET` - getUserById
+- `http://localhost:5000/api/profile`
+  - `GET` - getUserProfile
+  - `PUT` - updateUserProfile
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+products
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `http://localhost:5000/api/products`
+  - `GET` - getProducts
+  - `POST` - createProduct
