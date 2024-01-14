@@ -7,7 +7,9 @@
 		"client": "cd ./client && nodemon start",
 		"server": "cd ./server && nodemon app.js",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"test_server": "clear && jest"
+		"data:import": "node server/seeder",
+		"data:destroy": "node server/seeder -d",
+		"test_server": "clear && cross-env NODE_ENV=test jest --testTimeout=5000"
 	},
 	"keywords": [],
 	"author": "",
@@ -24,6 +26,7 @@
 	},
 	"devDependencies": {
 		"concurrently": "^8.2.2",
+		"cross-env": "^7.0.3",
 		"jest": "^29.7.0",
 		"nodemon": "^3.0.2",
 		"supertest": "^6.3.3"

@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const { connectToDB } = require("./config/db.js");
 // Routes
 const userRoutes = require("./routes/userRoutes.js");
-
+const productRoutes = require("./routes/productRoutes.js");
 const { errorMiddleware } = require("./middleware/error.js");
 
 const PORT = process.env.PORT || 5000;
@@ -21,13 +21,16 @@ app.use(cookieParser());
 app.use(errorMiddleware);
 
 app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
 
 app.get("/", (req, res) => {
 	res.json({ message: "API is running..." });
 });
 
 const server = app.listen(5000, () => {
-	console.log(`Server is listening on port ${PORT} in ${NODE_ENV} mode...`);
+	if (process.env.NODE_ENV === "development") {
+		console.log(`Server is listening on port ${PORT} in ${NODE_ENV} mode...`);
+	}
 });
 
 module.exports = { app, server };
