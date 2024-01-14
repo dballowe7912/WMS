@@ -1,21 +1,33 @@
 const express = require("express");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv").config();
 const colors = require("colors");
 const cookieParser = require("cookie-parser");
+const { connectToDB } = require("./config/db.js");
+// Routes
+const userRoutes = require("./routes/userRoutes.js");
+
+const { errorMiddleware } = require("./middleware/error.js");
+
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV || "development";
-dotenv.config();
 
 const app = express();
+connectToDB();
 
+// middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(errorMiddleware);
+
+app.use("/api/users", userRoutes);
 
 app.get("/", (req, res) => {
-	res.send("API is running...");
+	res.json({ message: "API is running..." });
 });
 
-app.listen(5000, () => {
+const server = app.listen(5000, () => {
 	console.log(`Server is listening on port ${PORT} in ${NODE_ENV} mode...`);
 });
+
+module.exports = { app, server };
